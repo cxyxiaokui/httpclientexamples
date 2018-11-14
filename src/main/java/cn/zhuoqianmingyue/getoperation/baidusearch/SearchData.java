@@ -1,12 +1,12 @@
 package cn.zhuoqianmingyue.getoperation.baidusearch;
 /**
- *  搜索数据
+ *  鎼滅储鏁版嵁
  * @author zhuoqianmingyue
  */
 public class SearchData {
 	
-	private String title;//文章标题
-	private String url;//文章的url
+	private String title;//鏂囩珷鏍囬
+	private String url;//鏂囩珷鐨剈rl
 	public String getTitle() {
 		return title;
 	}

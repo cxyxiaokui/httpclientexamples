@@ -41,13 +41,13 @@ public class BaiDuSearchUtil {
 				flag = false;
 			}
 			pageNumber++;
-			log.info("µ±Ç°ÅÀÈ¡µÄÒ³ÊıÎª£º"+pageNumber);
+			log.info("å½“å‰çˆ¬å–çš„é¡µæ•°ä¸ºï¼š"+pageNumber);
 		}
 		return allSearchData;
 	}
 	
 	/**
-	 *  ÅĞ¶ÏÊÇ·ñÊÇ×îºóÒ»Ò³
+	 *  åˆ¤æ–­æ˜¯å¦æ˜¯æœ€åä¸€é¡µ
 	 * @param searchInfoHtml
 	 * @return
 	 */
@@ -56,13 +56,13 @@ public class BaiDuSearchUtil {
 		Element pageElement = doc.select("div#page").get(0);
 		
 		String html = pageElement.html();
-		if(html.indexOf("ÏÂÒ»Ò³")!=-1) {
+		if(html.indexOf("ä¸‹ä¸€é¡µ")!=-1) {
 			return false;
 		}
 		return true;
 	}
 	/**
-	 *  ½âÎöËÑË÷ÄÚÈİ±êÌâºÍÁ¬½Ó
+	 *  è§£ææœç´¢å†…å®¹æ ‡é¢˜å’Œè¿æ¥
 	 * @param searchInfoHtml
 	 * @return
 	 */
@@ -75,7 +75,7 @@ public class BaiDuSearchUtil {
     		String url = element.attr("href");
     		if(!"javascript:;".equals(url)) {
     			String title = element.html().replace("<em>", "").replace("</em>", "");
-    			if(!"°Ù¶È¿ìÕÕ".equals(title)) {
+    			if(!"ç™¾åº¦å¿«ç…§".equals(title)) {
     				SearchData searchData = new SearchData();
         			searchData.setTitle(title);
         			searchData.setUrl(url);
@@ -87,10 +87,10 @@ public class BaiDuSearchUtil {
 		return searchDataList;
 	}
 	/**
-	 * //https://blog.csdn.net/qq_26816591/article/details/53335987(°Ù¶È²ÎÊı)
-	 *   ÅÀÈ¡°Ù¶ÈËÑË÷µÄhtmlÒ³Ãæ
-	 * @param searchKey :ËÑË÷µÄ¹Ø¼ü´Ê
-	 * @param number:ÅÀÈ¡µÄÒ³Êı  
+	 * //https://blog.csdn.net/qq_26816591/article/details/53335987(ç™¾åº¦å‚æ•°)
+	 *   çˆ¬å–ç™¾åº¦æœç´¢çš„htmlé¡µé¢
+	 * @param searchKey :æœç´¢çš„å…³é”®è¯
+	 * @param number:çˆ¬å–çš„é¡µæ•°  
 	 * @return
 	 * @throws URISyntaxException
 	 */

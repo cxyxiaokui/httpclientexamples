@@ -18,23 +18,23 @@ public class SimpleGetHttpClientDemo {
 	private static Logger log = Logger.getLogger(SimpleGetHttpClientDemo.class);
 	
 	/**
-	 *  ÎŞ²ÎÊıµÄget·ÃÎÊ
+	 *  æ— å‚æ•°çš„getè®¿é—®
 	 */
 	@Test
 	public void withoutParameters() {
-		//´´½¨HttpClinet
+		//åˆ›å»ºHttpClinet
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		//Ìí¼ÓHTTP GETÇëÇó ·ÃÎÊ°Ù¶ÈÊ×Ò³
+		//æ·»åŠ HTTP GETè¯·æ±‚ è®¿é—®ç™¾åº¦é¦–é¡µ
 		HttpGet httpGet = new HttpGet("https://www.baidu.com");
 		CloseableHttpResponse response = null;
 		try {
-			//Ö´ĞĞÇëÇó·ÃÎÊ
+			//æ‰§è¡Œè¯·æ±‚è®¿é—®
 			response = httpClient.execute(httpGet);
-			//»ñÈ¡·µ»ØHTTP×´Ì¬Âë
+			//è·å–è¿”å›HTTPçŠ¶æ€ç 
 			int satausCode = response.getStatusLine().getStatusCode();
 			if(satausCode == 200 ){
 				String content = EntityUtils.toString(response.getEntity(),"UTF-8");
-				log.info("°Ù¶ÈÊ×Ò³Ò³Ãæ£º"+content);
+				log.info("ç™¾åº¦é¦–é¡µé¡µé¢ï¼š"+content);
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -43,21 +43,21 @@ public class SimpleGetHttpClientDemo {
 		}
 	}
 	/**
-	 *  ÓĞ²ÎÊıµÄ·ÃÎÊ
+	 *  æœ‰å‚æ•°çš„è®¿é—®
 	 * @throws URISyntaxException
 	 */
 	@Test
 	public void withParameters() throws URISyntaxException {
 
-		//´´½¨HttpClinet
+		//åˆ›å»ºHttpClinet
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		//Æ´½Ó·ÃÎÊurl ½øĞĞ
+		//æ‹¼æ¥è®¿é—®url è¿›è¡Œ
 		URI uri = new URI("http://www.baidu.com/s");
-		//Æ´½ÓËÑË÷ÄÚÈİ ?wd=httpclinet
+		//æ‹¼æ¥æœç´¢å†…å®¹ ?wd=httpclinet
 		URIBuilder uriBuilder = new URIBuilder(uri);
 		uriBuilder.setParameter("wd", "httpclient");
 		URI uriParma = uriBuilder.build();
-		//Ìí¼ÓHTTP GETÇëÇó ·ÃÎÊ°Ù¶ÈËÑË÷httpclientÏà¹ØĞÅÏ¢
+		//æ·»åŠ HTTP GETè¯·æ±‚ è®¿é—®ç™¾åº¦æœç´¢httpclientç›¸å…³ä¿¡æ¯
 		HttpGet httpGet = new HttpGet(uriParma);
 		CloseableHttpResponse response = null;
 		try {
@@ -75,21 +75,21 @@ public class SimpleGetHttpClientDemo {
 	
 	}
 	/**
-	 *  ·ÃÎÊhttps://www.baidu.com ËÑË÷ĞèÒªÉèÖÃÇëÇóÍ·µÄ Host£ºwww.baidu.com
+	 *  è®¿é—®https://www.baidu.com æœç´¢éœ€è¦è®¾ç½®è¯·æ±‚å¤´çš„ Hostï¼šwww.baidu.com
 	 * @throws URISyntaxException
 	 */
 	@Test
 	public void withParametersByHttps() throws URISyntaxException {
 
-		//´´½¨HttpClinet
+		//åˆ›å»ºHttpClinet
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		//Æ´½Ó·ÃÎÊurl ½øĞĞ
+		//æ‹¼æ¥è®¿é—®url è¿›è¡Œ
 		URI uri = new URI("https://www.baidu.com/s");
-		//Æ´½ÓËÑË÷ÄÚÈİ ?wd=httpclinet
+		//æ‹¼æ¥æœç´¢å†…å®¹ ?wd=httpclinet
 		URIBuilder uriBuilder = new URIBuilder(uri);
 		uriBuilder.setParameter("wd", "httpclient");
 		URI uriParma = uriBuilder.build();
-		//Ìí¼ÓHTTP GETÇëÇó ·ÃÎÊ°Ù¶ÈËÑË÷httpclientÏà¹ØĞÅÏ¢
+		//æ·»åŠ HTTP GETè¯·æ±‚ è®¿é—®ç™¾åº¦æœç´¢httpclientç›¸å…³ä¿¡æ¯
 		HttpGet httpGet = new HttpGet(uriParma);
 		
 		httpGet.addHeader("Host","www.baidu.com");
