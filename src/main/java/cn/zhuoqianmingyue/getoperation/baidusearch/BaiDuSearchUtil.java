@@ -23,7 +23,12 @@ import cn.zhuoqianmingyue.getoperation.SimpleGetHttpClientDemo;
 public class BaiDuSearchUtil {
 	
 	private static Logger log = Logger.getLogger(SimpleGetHttpClientDemo.class);
-	
+	/**
+	 * 根据searchKey 爬取相关的文章内容
+	 * @param searchKey
+	 * @return
+	 * @throws URISyntaxException
+	 */
 	public static List<SearchData> search(String searchKey) throws URISyntaxException {
 		
 		List<SearchData> allSearchData = new ArrayList<SearchData>();
@@ -47,12 +52,13 @@ public class BaiDuSearchUtil {
 	}
 	
 	/**
-	 *  判断是否是最后一页
+	 *  判断当前搜索结果是否是最后一页
 	 * @param searchInfoHtml
 	 * @return
 	 */
 	private static boolean isEndPage(String searchInfoHtml) {
 		Document doc = Jsoup.parse(searchInfoHtml);
+		//获取id为page的div的元素信息
 		Element pageElement = doc.select("div#page").get(0);
 		
 		String html = pageElement.html();
@@ -62,14 +68,14 @@ public class BaiDuSearchUtil {
 		return true;
 	}
 	/**
-	 *  解析搜索内容标题和连接
+	 *  解析搜索结果中文章标题和文章的url
 	 * @param searchInfoHtml
 	 * @return
 	 */
 	private static List<SearchData> parseDataHtml(String searchInfoHtml) {
 		List<SearchData> searchDataList = new ArrayList<SearchData>(); 
 		Document doc = Jsoup.parse(searchInfoHtml);
-		
+		//获取所有包含data-click属性的a标签的元素
     	Elements select = doc.select("a[data-click]");
     	for (Element element : select) {
     		String url = element.attr("href");
@@ -87,8 +93,7 @@ public class BaiDuSearchUtil {
 		return searchDataList;
 	}
 	/**
-	 * //https://blog.csdn.net/qq_26816591/article/details/53335987(百度参数)
-	 *   爬取百度搜索的html页面
+	 *  爬取百度搜索具体页数结果页面
 	 * @param searchKey :搜索的关键词
 	 * @param number:爬取的页数  
 	 * @return
@@ -116,20 +121,30 @@ public class BaiDuSearchUtil {
 		}
 		return searchInfoHtml;
 	}
+	/**
+	 * 设置httpGet的头部信息
+	 * @param httpGet
+	 */
 	private static void addHeaders(HttpGet httpGet) {
 		httpGet.addHeader("Host","www.baidu.com");
 		httpGet.addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36");
 	}
-
+	/**
+	 * 处理百度搜索必须的查询参数
+	 * @param searchKey
+	 * @param pageNumber
+	 * @return
+	 * @throws URISyntaxException
+	 */
 	private static URI dualWithParameter(String searchKey, Integer pageNumber) throws URISyntaxException {
 		URI uri = new URI("https://www.baidu.com/s");
 		URIBuilder uriBuilder = new URIBuilder(uri);
-		uriBuilder.setParameter("wd", searchKey);
-		uriBuilder.setParameter("pn", ((pageNumber-1)*10)+"");
-		uriBuilder.setParameter("oq", searchKey);
-		uriBuilder.setParameter("ie", "utf-8");
-		uriBuilder.setParameter("rsv_idx", "1");
-		uriBuilder.setParameter("f", "8");
+		uriBuilder.setParameter("wd", searchKey);//查询关键字
+		uriBuilder.setParameter("pn", ((pageNumber-1)*10)+"");//显示结果页数
+		uriBuilder.setParameter("oq", searchKey);//上次索引关键字
+		uriBuilder.setParameter("ie", "utf-8");//关键字编码格式
+		uriBuilder.setParameter("rsv_idx", "1");//
+		uriBuilder.setParameter("f", "8");//用户自立搜索，透露表现用户直接点击“百度一下”按键
 		uriBuilder.setParameter("rsv_bq", "1");
 		uriBuilder.setParameter("tn", "baidu");
 		URI uriParma = uriBuilder.build();
