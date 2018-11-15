@@ -21,9 +21,10 @@ public class SimpleGetHttpClientDemo {
 	
 	/**
 	 *  无参数的get访问
+	 * @throws IOException 
 	 */
 	@Test
-	public void withoutParameters() {
+	public void withoutParameters()  {
 		//创建HttpClinet
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		//添加HTTP GET请求 访问百度首页
@@ -37,11 +38,18 @@ public class SimpleGetHttpClientDemo {
 			if(satausCode == 200 ){
 				String content = EntityUtils.toString(response.getEntity(),"UTF-8");
 				log.info("百度首页页面："+content);
+				EntityUtils.consume(response.getEntity());
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				response.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	/**
@@ -68,11 +76,18 @@ public class SimpleGetHttpClientDemo {
 			if(satausCode == 200 ){
 				String content = EntityUtils.toString(response.getEntity(),"UTF-8");
 				log.info(content);
+				EntityUtils.consume(response.getEntity());
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				response.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	
 	}
@@ -103,11 +118,18 @@ public class SimpleGetHttpClientDemo {
 			if(satausCode == 200 ){
 				String content = EntityUtils.toString(response.getEntity(),"UTF-8");
 				log.info(content);
+				EntityUtils.consume(response.getEntity());
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				response.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
