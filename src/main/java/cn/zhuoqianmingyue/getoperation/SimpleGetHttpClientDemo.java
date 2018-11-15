@@ -3,6 +3,9 @@ package cn.zhuoqianmingyue.getoperation;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -10,12 +13,11 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 public class SimpleGetHttpClientDemo {
 	
-	private static Logger log = Logger.getLogger(SimpleGetHttpClientDemo.class);
+	private static Log log  =  LogFactory.getLog(SimpleGetHttpClientDemo.class );   
 	
 	/**
 	 *  无参数的get访问
